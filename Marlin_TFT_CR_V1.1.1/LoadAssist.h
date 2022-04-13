@@ -14,6 +14,8 @@ enum load_assist_state_t {
     RETRACTED = 3,
     PULSING_EXTENSION = 4,
     EXTENDING = 5,
+    CHECK_MAG_EMPTY = 6,
+    MAG_EMPTY = 7,
 };
 
 /**
@@ -73,4 +75,9 @@ public:
      * @param extend true = extend, false = retract
      */
     void setExtend(bool extend);
+
+    /**
+     * @brief check state machine to see if the magazine is empty
+     */
+    bool isMagEmpty();
 };

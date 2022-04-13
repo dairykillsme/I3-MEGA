@@ -777,18 +777,14 @@ void SetupFilament()
 
 void FilamentScan()
 {
-static char last_status=READ(FilamentTestPin);
-static unsigned char now_status,status_flag=false;
 static unsigned int counter=0;
- now_status=READ(FilamentTestPin)&0xff;
-// if (now_status==last_status) return;
- if(now_status>last_status)
+ if(loadAssist.isMagEmpty())
  {
     counter++;
-    if(counter>=16000)
+    if(counter>=64000)
     {
        counter=0;  
-       FilamentLack();//music 
+      //  FilamentLack();//music 
       if((card.sdprinting==true))
       {    
             NEW_SERIAL_PROTOCOLPGM("J23");//j23 FILAMENT LACK with the prompt box don't disappear
@@ -800,11 +796,10 @@ static unsigned int counter=0;
       {                         
             NEW_SERIAL_PROTOCOLPGM("J15");//j15 FILAMENT LACK
             TFT_SERIAL_ENTER();     
-      }  
-      last_status=now_status;                      
+      }                    
     }    
   }
-  else if(now_status!=last_status) {counter=0;last_status=now_status;}    
+  else {counter=0;}    
 //  else  {counter=0;last_status=now_status;} 
 } 
 

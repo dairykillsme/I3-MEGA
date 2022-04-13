@@ -98,22 +98,6 @@ void LoadAssist::tick_state_machine() {
         }
     }
 
-    // If we are retracting the load assist, check if it's okay to turn around
-    if (m_state == RETRACTING) {
-        if (millis() - m_moveTime > LOAD_ASSIST_MOVE_TIME_MS) {
-            loadAssist.setExtend(EXTEND);
-            m_moveTime = millis();
-            SERIAL_ECHOLN("Extending...");
-        }
-    }
-
-    // If we are extending the load assist, check if the move is finished
-    if (m_state == EXTENDING) {
-        if (millis() - m_moveTime > LOAD_ASSIST_MOVE_TIME_MS) {
-            m_state = WAITING_TO_RETRACT;
-        }
-    }
-
     // Do load assist steps before other steps since they are not part of the planning blocks
     if (loadAssist.is_pulsing()) {
         // If a minimum pulse time was specified get the CPU clock
@@ -131,6 +115,37 @@ void LoadAssist::tick_state_machine() {
 
         loadAssist.stop_pulse();
     }
+
+    // If we are retracting the load assist, check if it's okay to turn around
+    if (m_state == RETRACTING) {
+        if (millis() - m_moveTime > LOAD_ASSIST_MOVE_TIME_MS) {
+            loadAssist.setExtend(EXTEND);
+            m_moveTime = millis();
+            SERIAL_ECHOLN("Extending...");
+        }
+    }
+
+    // If we are extending the load assist, check if the move is finished
+    if (m_state == EXTENDING) {
+        if (millis() - m_moveTime > LOAD_ASSIST_MOVE_TIME_MS) {
+            m_state = CHECK_MAG_EMPTY;
+        }
+    }
+
+    // if a stick is detected after just EXTENDING go to WAITING_TO_RETRACT state
+    // else is when no stick is detected and it goes to MAG_EMPTY state
+    if (m_state == CHECK_MAG_EMPTY) {
+        bool filastickDetected = !READ(FilamentTestPin);
+        if (filastickDetected){
+            m_state = WAITING_TO_RETRACT;
+        } else {
+            m_state = MAG_EMPTY;
+        } 
+    }
+}
+
+bool LoadAssist::isMagEmpty() {
+    return m_state == MAG_EMPTY;
 }
 
 void LoadAssist::setExtend(bool extend) {
