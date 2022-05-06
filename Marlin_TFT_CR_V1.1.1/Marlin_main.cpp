@@ -783,8 +783,8 @@ static unsigned int counter=0;
     counter++;
     if(counter>=64000)
     {
-       counter=0;  
-      //  FilamentLack();//music 
+      counter=0;  
+      FilamentLack();//music 
       if((card.sdprinting==true))
       {    
             NEW_SERIAL_PROTOCOLPGM("J23");//j23 FILAMENT LACK with the prompt box don't disappear
@@ -799,8 +799,7 @@ static unsigned int counter=0;
       }                    
     }    
   }
-  else {counter=0;}    
-//  else  {counter=0;last_status=now_status;} 
+  else {counter=0;}
 } 
 
 

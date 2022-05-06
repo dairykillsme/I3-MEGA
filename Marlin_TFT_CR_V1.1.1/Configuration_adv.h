@@ -86,7 +86,7 @@
    * If you get false positives for "Heating failed" increase WATCH_TEMP_PERIOD and/or decrease WATCH_TEMP_INCREASE
    * WATCH_TEMP_INCREASE should not be below 2.
    */
-  #define WATCH_TEMP_PERIOD 60                // Seconds
+  #define WATCH_TEMP_PERIOD 120                // Seconds
   #define WATCH_TEMP_INCREASE 2               // Degrees Celsius
 #endif
 
@@ -206,7 +206,7 @@
 
 //Max model cooling fan present setting  FOR I3 MEGA,the max value is 1
 
-#define MAX_MODEL_COOLING_PRECENT_VALUE 0.7 // the max present is 70%
+#define MAX_MODEL_COOLING_PRECENT_VALUE 0.5 // the max present is 50%
 
 
 
