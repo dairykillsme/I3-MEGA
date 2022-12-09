@@ -74,7 +74,7 @@
  * If you get false positives for "Thermal Runaway" increase THERMAL_PROTECTION_HYSTERESIS and/or THERMAL_PROTECTION_PERIOD
  */
 #if ENABLED(THERMAL_PROTECTION_HOTENDS)
-  #define THERMAL_PROTECTION_PERIOD 250        // Seconds-
+  #define THERMAL_PROTECTION_PERIOD 60        // Seconds-
   #define THERMAL_PROTECTION_HYSTERESIS 45     // Degrees Celsius
 
   /**
@@ -86,8 +86,8 @@
    * If you get false positives for "Heating failed" increase WATCH_TEMP_PERIOD and/or decrease WATCH_TEMP_INCREASE
    * WATCH_TEMP_INCREASE should not be below 2.
    */
-  #define WATCH_TEMP_PERIOD 35                // Seconds
-  #define WATCH_TEMP_INCREASE 10               // Degrees Celsius
+  #define WATCH_TEMP_PERIOD 120                // Seconds
+  #define WATCH_TEMP_INCREASE 2               // Degrees Celsius
 #endif
 
 /**
@@ -206,7 +206,7 @@
 
 //Max model cooling fan present setting  FOR I3 MEGA,the max value is 1
 
-#define MAX_MODEL_COOLING_PRECENT_VALUE 0.7 // the max present is 70%
+#define MAX_MODEL_COOLING_PRECENT_VALUE 0.5 // the max present is 50%
 
 
 
@@ -275,7 +275,7 @@
 // A single Z stepper driver is usually used to drive 2 stepper motors.
 // Uncomment this option to use a separate stepper driver for each Z axis motor.
 // The next unused E driver will be assigned to the second Z stepper.
-#define Z_DUAL_STEPPER_DRIVERS
+//#define Z_DUAL_STEPPER_DRIVERS
 
 #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
 
@@ -1101,7 +1101,7 @@
 /**
  * Auto-report temperatures with M155 S<seconds>
  */
-//#define AUTO_REPORT_TEMPERATURES
+#define AUTO_REPORT_TEMPERATURES
 
 /**
  * Include capabilities in M115 output

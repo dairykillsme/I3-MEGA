@@ -53,6 +53,7 @@
 #include "language.h"
 #include "cardreader.h"
 #include "speed_lookuptable.h"
+#include "LoadAssist.h"
 
 #if HAS_DIGIPOTSS
   #include <SPI.h>
@@ -338,6 +339,8 @@ void Stepper::isr() {
   CBI(TIMSK0, OCIE0B); //Temperature ISR
   DISABLE_STEPPER_DRIVER_INTERRUPT();
   sei();
+
+  loadAssist.tick_state_machine();
   
   if (cleaning_buffer_counter) {
     --cleaning_buffer_counter;
